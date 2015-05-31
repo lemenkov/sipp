@@ -1376,7 +1376,7 @@ int main(int argc, char *argv[])
                 }
                 exit(EXIT_OTHER);
             case SIPP_OPTION_VERSION:
-                printf("\n %s.\n\n",
+                printf("\n %s%s.\n\n",
                        /* SIPp v1.2.3-TLS-PCAP built YMD, HMS */
                        "SIPp " VERSION
 #ifdef _USE_OPENSSL
@@ -1391,7 +1391,9 @@ int main(int argc, char *argv[])
 #ifdef RTP_STREAM
                        "-RTPSTREAM"
 #endif
-                       " built " __DATE__ ", " __TIME__);
+                       " built " __DATE__ ", " __TIME__,
+                       (strcmp(GIT_COMMIT_ID, "") ? " from git commit " GIT_COMMIT_ID : "")
+                       );
 
                 printf
                 (" This program is free software; you can redistribute it and/or\n"

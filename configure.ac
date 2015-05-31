@@ -1,8 +1,9 @@
 # ======================== initialization ===============================
 
 AC_INIT([SIPp],
-        [m4_esyscmd_s([git describe --tags --always --dirty])],
-        [sipp-users@lists.sourceforge.net], [sipp])
+        [3.5.0-rc1],
+        [sipp-users@lists.sourceforge.net],
+        [sipp])
 
 # Load non-standard m4 files from ./m4/*.m4.
 # AC_CONFIG_MACRO_DIR([m4]) does not work on pre-1.13 aclocal, so we
@@ -11,6 +12,8 @@ m4_include([m4/ax_config_feature.m4])
 m4_include([m4/ax_have_epoll.m4])
 
 AC_CANONICAL_TARGET
+AH_TEMPLATE([GIT_COMMIT_ID], [])
+AC_DEFINE([GIT_COMMIT_ID], m4_join([], ", m4_esyscmd_s([git describe --always]), "), [])
 
 AC_CONFIG_SRCDIR([src/sipp.cpp])
 AC_CONFIG_HEADERS([include/config.h])

@@ -8,6 +8,9 @@
 /* Define to 1 if using `alloca.c'. */
 #undef C_ALLOCA
 
+/* */
+#undef GIT_COMMIT_ID
+
 /* Define to 1 if you have the `alarm' function. */
 #undef HAVE_ALARM
 
