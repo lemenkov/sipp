@@ -165,26 +165,13 @@ endif(USE_SCTP)
 add_executable(sipp ${all_SRCS} "${PROJECT_SOURCE_DIR}/src/sipp.cpp")
 target_compile_features(sipp PUBLIC cxx_auto_type cxx_range_for)
 
-if(EXISTS ${PROJECT_SOURCE_DIR}/gtest/googletest)
-  add_executable(sipp_unittest EXCLUDE_FROM_ALL
-    ${all_SRCS}
-    "${PROJECT_SOURCE_DIR}/src/sipp_unittest.cpp"
-    "${PROJECT_SOURCE_DIR}/gtest/googletest/src/gtest-all.cc"
-    "${PROJECT_SOURCE_DIR}/gtest/googlemock/src/gmock-all.cc"
-  )
-  target_compile_features(sipp_unittest PUBLIC cxx_auto_type cxx_range_for)
-  target_compile_definitions(sipp_unittest PUBLIC "-DGTEST")
-  target_include_directories(sipp_unittest SYSTEM PUBLIC
-    ${PROJECT_SOURCE_DIR}/gtest/googletest
-    ${PROJECT_SOURCE_DIR}/gtest/googlemock
-    ${PROJECT_SOURCE_DIR}/gtest/googletest/include
-    ${PROJECT_SOURCE_DIR}/gtest/googlemock/include
-  )
-else()
-  add_executable(sipp_unittest EXCLUDE_FROM_ALL
-    ${all_SRCS}
-    "${PROJECT_SOURCE_DIR}/src/sipp_unittest.cpp")
-endif()
+# Testing
+find_package(GTest)
+include(GoogleTest)
+add_executable(sipp_unittest EXCLUDE_FROM_ALL ${all_SRCS} "${PROJECT_SOURCE_DIR}/src/sipp_unittest.cpp")
+target_compile_features(sipp_unittest PUBLIC cxx_auto_type cxx_range_for)
+target_compile_definitions(sipp_unittest PUBLIC "-DGTEST")
+gtest_add_tests(TARGET sipp_unittest TEST_PREFIX sipp_unittests:)
 
 # add version
 find_package(Git)
