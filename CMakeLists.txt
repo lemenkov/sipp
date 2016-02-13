@@ -302,24 +302,17 @@ add_sipp_target(sipp
 )
 target_compile_features(sipp PUBLIC cxx_auto_type cxx_range_for)
 
-if(EXISTS ${PROJECT_SOURCE_DIR}/gtest/googletest)
-  add_sipp_target(sipp_unittest
-    EXCLUDE_FROM_ALL
-    SOURCES "${PROJECT_SOURCE_DIR}/src/sipp_unittest.cpp"
-            "${PROJECT_SOURCE_DIR}/gtest/googletest/src/gtest-all.cc"
-            "${PROJECT_SOURCE_DIR}/gtest/googlemock/src/gmock-all.cc"
-    COMPILE_DEFINITIONS "-DGTEST"
-    EXTRA_INCLUDES ${PROJECT_SOURCE_DIR}/gtest/googletest
-                   ${PROJECT_SOURCE_DIR}/gtest/googlemock
-                   ${PROJECT_SOURCE_DIR}/gtest/googletest/include
-                   ${PROJECT_SOURCE_DIR}/gtest/googlemock/include
-  )
-else()
-  add_sipp_target(sipp_unittest
-    EXCLUDE_FROM_ALL
-    SOURCES "${PROJECT_SOURCE_DIR}/src/sipp_unittest.cpp"
-  )
-endif()
+# Testing with system GTest
+find_package(GTest REQUIRED)
+include(GoogleTest)
+add_sipp_target(sipp_unittest
+	EXCLUDE_FROM_ALL
+	SOURCES "${PROJECT_SOURCE_DIR}/src/sipp_unittest.cpp"
+	COMPILE_DEFINITIONS "-DGTEST"
+)
+target_compile_features(sipp_unittest PUBLIC cxx_auto_type cxx_range_for)
+target_link_libraries(sipp_unittest GTest::GTest GTest::Main)
+gtest_add_tests(TARGET sipp_unittest TEST_PREFIX sipp_unittests:)
 
 # add version
 find_package(Git)
