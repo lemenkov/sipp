@@ -133,38 +133,18 @@ sipp_LDADD = @LIBOBJS@ @GSL_LIBS@
 src/call.cpp: include/version.h
 src/sipp.cpp: include/version.h
 
-gtest_SOURCES = \
-	gtest/src/gtest-death-test.cc \
-	gtest/src/gtest-filepath.cc \
-	gtest/src/gtest-internal-inl.h \
-	gtest/src/gtest-port.cc \
-	gtest/src/gtest-printers.cc \
-	gtest/src/gtest-test-part.cc \
-	gtest/src/gtest-typed-test.cc \
-	gtest/src/gtest.cc \
-	gmock/src/gmock-internal-utils.cc \
-	gmock/src/gmock-matchers.cc
-
 sipp_unittest_SOURCES = \
 	$(common_SOURCES) \
 	src/sipp_unittest.cpp \
-	src/xp_parser_ut.cpp \
-	$(gtest_SOURCES)
+	src/xp_parser_ut.cpp
 
 sipp_unittest_CFLAGS = $(AM_CFLAGS) -DGTEST=1 \
-	-I$(srcdir)/gtest/include \
-	-I$(srcdir)/gmock/include \
-	-I$(srcdir)/gtest \
-	-I$(srcdir)/gmock \
-	@GSL_CFLAGS@
+	@GSL_CFLAGS@ `/usr/bin/gtest-config --cppflags`
 
 sipp_unittest_CXXFLAGS = $(AM_CXXFLAGS) -DGTEST=1 \
-	-I$(srcdir)/gtest/include \
-	-I$(srcdir)/gmock/include \
-	-I$(srcdir)/gtest \
-	-I$(srcdir)/gmock \
-	@GSL_CXXFLAGS@
+	@GSL_CXXFLAGS@ `/usr/bin/gtest-config --cxxflags`
 
+sipp_unittest_LDFLAGS = `/usr/bin/gtest-config --ldflags --libs`
 sipp_unittest_LDADD = @LIBOBJS@ @GSL_LIBS@
 
 if HAVE_HELP2MAN
