@@ -139,12 +139,12 @@ sipp_unittest_SOURCES = \
 	src/xp_parser_ut.cpp
 
 sipp_unittest_CFLAGS = $(AM_CFLAGS) -DGTEST=1 \
-	@GSL_CFLAGS@ `/usr/bin/gtest-config --cppflags`
+	@GSL_CFLAGS@
 
 sipp_unittest_CXXFLAGS = $(AM_CXXFLAGS) -DGTEST=1 \
-	@GSL_CXXFLAGS@ `/usr/bin/gtest-config --cxxflags`
+	@GSL_CXXFLAGS@
 
-sipp_unittest_LDFLAGS = `/usr/bin/gtest-config --ldflags --libs`
+sipp_unittest_LDFLAGS = -lgtest
 sipp_unittest_LDADD = @LIBOBJS@ @GSL_LIBS@
 
 if HAVE_HELP2MAN
