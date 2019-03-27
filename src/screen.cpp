@@ -40,12 +40,9 @@
 
 #include <unistd.h>
 
-extern bool    timeout_exit;
-
 unsigned long screen_errors;
 int           screen_inited = 0;
 char          screen_exename[255];
-extern bool   backgroundMode;
 
 /* Clock must be a pointer to struct timeval */
 #define GET_TIME(clock)       \
