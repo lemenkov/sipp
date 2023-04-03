@@ -131,6 +131,7 @@ include(GoogleTest)
 add_executable(sipp_unittest EXCLUDE_FROM_ALL ${all_SRCS} "${PROJECT_SOURCE_DIR}/src/sipp_unittest.cpp")
 target_compile_features(sipp_unittest PUBLIC cxx_auto_type cxx_range_for)
 target_compile_definitions(sipp_unittest PUBLIC "-DGTEST")
+target_link_libraries(sipp_unittest ${GTEST_BOTH_LIBRARIES})
 gtest_add_tests(TARGET sipp_unittest TEST_PREFIX sipp_unittests:)
 
 # add version
