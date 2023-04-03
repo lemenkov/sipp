@@ -311,7 +311,7 @@ add_sipp_target(sipp_unittest
 	COMPILE_DEFINITIONS "-DGTEST"
 )
 target_compile_features(sipp_unittest PUBLIC cxx_auto_type cxx_range_for)
-target_link_libraries(sipp_unittest GTest::GTest GTest::Main)
+target_link_libraries(sipp_unittest ${GTEST_BOTH_LIBRARIES})
 gtest_add_tests(TARGET sipp_unittest TEST_PREFIX sipp_unittests:)
 
 # add version
