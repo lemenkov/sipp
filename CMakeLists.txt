@@ -70,6 +70,8 @@ function(apply_common_sipp_dependencies TARGET_NAME)
   # Basic libraries that all targets need
   target_link_libraries(${TARGET_NAME} dl pthread)
 
+  target_link_libraries(${TARGET_NAME} pugixml::pugixml)
+
   # Enable symbol export for plugins
   set_target_properties(${TARGET_NAME} PROPERTIES ENABLE_EXPORTS ON)
 
@@ -190,6 +192,9 @@ if(NOT USE_PCAP)
     "${PROJECT_SOURCE_DIR}/src/prepare_pcap.c"
     "${PROJECT_SOURCE_DIR}/src/send_packets.c")
 endif(NOT USE_PCAP)
+
+# XML parsing
+find_package(pugixml REQUIRED)
 
 if(USE_PCAP)
   add_definitions("-DPCAPPLAY")

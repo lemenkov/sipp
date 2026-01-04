@@ -63,7 +63,6 @@
 
 /* Sipp includes */
 
-#include "xp_parser.h"
 #include "scenario.hpp"
 #include "screen.hpp"
 #include "task.hpp"

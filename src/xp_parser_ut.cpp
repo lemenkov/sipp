@@ -19,7 +19,7 @@
 /* This is a separate file because xp_parser.c is a C file, and GTEST
  * only works with C++ files. */
 
-#include "xp_parser.h"
+#include "xml_helpers.hpp"
 
 #ifdef GTEST
 #include "gtest/gtest.h"
